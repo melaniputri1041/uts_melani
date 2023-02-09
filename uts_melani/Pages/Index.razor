@@ -1,0 +1,58 @@
+﻿@page "/"
+@using uts_melani.Models
+
+<h2>Kumpulan Buku Kobi</h2>
+
+<table class="table table-bordered" >
+    <thead style="background-color : rosybrown">
+        <tr align="center">
+            <th  >Genre</th>
+            <th >Title</th>
+            <th>Aksi </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in books)
+        {
+            <tr>
+                <td align="center">@book.Genre</td>
+                <td align="center">@book.Title</td>
+                <td align="center"><button class="btn btn-danger" @onclick="(() => RemoveBook(book))">Hapus</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button class="btn btn-primary" @onclick="AddRandomBook">Tambah</button>
+
+@code{
+
+
+        private List<Book> books = new List<Book>
+    {
+        new Book("one piece", Genre.Komik),
+        new Book("black clover",Genre.Komik),
+        new Book("jujutsu kaisen", Genre.Komik),
+        new Book("andrea hirata",Genre.Novel),
+        new Book("j.k rowling",Genre.Novel ),
+        new Book("tere liye",Genre.Novel),
+        new Book("indonesia",Genre.Sejarah),
+        new Book("yunani",Genre.Sejarah),
+        new Book("jepang",Genre.Sejarah),
+
+    };
+
+    private void AddRandomBook()
+    {
+        var random = new Random();
+        var randomBook = books[random.Next(books.Count)];
+        books.Add(randomBook);
+    }
+
+    private void RemoveBook(Book book)
+    {
+        books.Remove(book);
+    }
+
+   
+}
